@@ -29,7 +29,7 @@ const DomainCard = () => {
     };
 
     return (
-        <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 flex flex-col">
+        <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 flex flex-col items-center text-center md:items-start md:text-left">
             <CardHeader>
                 <div className="mb-2 h-10 w-10 text-blue-500">
                     <Globe className="h-full w-full" />
@@ -85,7 +85,7 @@ const DomainCard = () => {
 
 const Services = () => {
     return (
-        <section id="services" className="container mx-auto px-4 py-24">
+        <section id="services" className="container mx-auto px-4 py-12 md:py-24">
             <div className="mb-16 flex flex-col items-center text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
@@ -115,7 +115,7 @@ const Services = () => {
                     transition={{ duration: 0.5 }}
                     className="group relative md:col-span-2 md:row-span-1 overflow-hidden"
                 >
-                    <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500">
+                    <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 items-center text-center md:items-start md:text-left">
                         <CardHeader>
                             <div className="mb-2 h-10 w-10 text-primary">
                                 <TrendingUp className="h-full w-full" />
@@ -148,7 +148,7 @@ const Services = () => {
                     transition={{ duration: 0.5, delay: 0.1 }}
                     className="group md:col-span-1 md:row-span-2 h-full"
                 >
-                    <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 flex flex-col overflow-hidden rounded-2xl">
+                    <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 flex flex-col overflow-hidden rounded-2xl items-center text-center md:items-start md:text-left">
                         <CardHeader>
                             <div className="mb-2 h-10 w-10 text-pink-500">
                                 <Zap className="h-full w-full" />
@@ -199,7 +199,7 @@ const Services = () => {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="group md:col-span-1 md:row-span-1"
                 >
-                    <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500">
+                    <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 items-center text-center md:items-start md:text-left">
                         <CardHeader>
                             <div className="mb-2 h-10 w-10 text-green-500">
                                 <Users className="h-full w-full" />

@@ -25,7 +25,7 @@ export default function Hiring() {
     };
 
     return (
-        <section className="py-24 px-4 bg-muted/30">
+        <section className="py-12 md:py-24 px-4 bg-muted/30">
             <div className="container mx-auto flex flex-col items-center">
 
                 {/* Cleaner Toggle Implementation */}

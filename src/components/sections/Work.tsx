@@ -35,7 +35,7 @@ const projects = [
 
 const Work = () => {
     return (
-        <section id="works" className="container mx-auto px-4 py-24">
+        <section id="works" className="container mx-auto px-4 py-12 md:py-24">
             <div className="mb-16 flex flex-col items-center text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}

@@ -33,7 +33,7 @@ const steps = [
 
 const Process = () => {
     return (
-        <section id="process" className="container mx-auto px-4 py-24 bg-muted/30">
+        <section id="process" className="container mx-auto px-4 py-12 md:py-24 bg-muted/30">
             <div className="mb-16 flex flex-col items-center text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ const Process = () => {
                             <div className="absolute top-0 right-0 p-8 opacity-10 font-black text-9xl group-hover:opacity-20 transition-opacity select-none">
                                 {step.order}
                             </div>
-                            <CardContent className="p-8 flex flex-col items-start h-full">
+                            <CardContent className="p-8 flex flex-col items-center text-center md:items-start md:text-left h-full">
                                 <div className="mb-6 rounded-full bg-primary/10 p-3 text-primary group-hover:scale-110 transition-transform">
                                     <step.icon className="h-6 w-6" />
                                 </div>

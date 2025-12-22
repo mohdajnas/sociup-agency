@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const About = () => {
     return (
-        <section id="about" className="container mx-auto px-4 py-24">
+        <section id="about" className="container mx-auto px-4 py-12 md:py-24">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
                 <motion.div
@@ -31,6 +31,7 @@ const About = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
+                    className="flex flex-col items-center text-center md:items-start md:text-left"
                 >
                     <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl mb-6">
                         We are the architects of the new digital reality.
@@ -42,7 +43,7 @@ const About = () => {
                         We believe in the power of design to evoke emotion and the precision of code to deliver performance. Our mission is direct: to build brands that are impossible to ignore.
                     </p>
 
-                    <div className="flex gap-8">
+                    <div className="flex gap-8 justify-center md:justify-start">
                         <div>
                             <div className="text-3xl font-bold text-primary">50+</div>
                             <div className="text-sm text-muted-foreground">Projects Delivered</div>
