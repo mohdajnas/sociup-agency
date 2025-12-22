@@ -82,7 +82,7 @@ const Work = () => {
                         {/* Glass Overlay */}
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
 
-                        <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                        <div className="absolute inset-0 p-8 flex flex-col justify-end items-center text-center md:items-start md:text-left">
                             <div className="transform translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                 <span className="text-white/80 text-sm font-medium">{project.category}</span>
                                 <div className="flex items-center justify-between mt-2">

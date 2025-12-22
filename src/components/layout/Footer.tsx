@@ -6,7 +6,7 @@ export function Footer() {
         <footer className="border-t bg-background/50 backdrop-blur-xl">
             <div className="container mx-auto px-4 py-12 md:py-16">
                 <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-5 text-sm">
-                    <div className="col-span-2 lg:col-span-2">
+                    <div className="col-span-2 lg:col-span-2 flex flex-col items-center text-center md:items-start md:text-left">
                         <Link href="/" className="text-2xl font-bold tracking-tighter">
                             Sociup<span className="text-primary">.</span>
                         </Link>
@@ -15,7 +15,7 @@ export function Footer() {
                         </p>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col items-center text-center md:items-start md:text-left">
                         <h3 className="mb-4 font-semibold">Services</h3>
                         <ul className="space-y-3 text-muted-foreground">
                             <li><Link href="#" className="hover:text-foreground">Marketing Strategy</Link></li>
@@ -25,7 +25,7 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col items-center text-center md:items-start md:text-left">
                         <h3 className="mb-4 font-semibold">Company</h3>
                         <ul className="space-y-3 text-muted-foreground">
                             <li><Link href="#" className="hover:text-foreground">About Us</Link></li>
@@ -35,7 +35,7 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col items-center text-center md:items-start md:text-left">
                         <h3 className="mb-4 font-semibold">Connect</h3>
                         <div className="flex space-x-4">
                             <Link href="#" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></Link>

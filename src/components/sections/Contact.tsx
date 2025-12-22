@@ -13,7 +13,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="w-full max-w-lg"
+                className="w-full max-w-lg flex flex-col items-center md:block"
             >
                 <div className="mb-10 text-center">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Let's work together</h2>
