@@ -17,7 +17,7 @@ const About = () => {
                 >
                     <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-tr from-zinc-800 to-zinc-900 flex items-center justify-center relative">
                         {/* Placeholder for About Image or Abstract Graphics */}
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-60 mix-blend-overlay"></div>
+                        <div className="absolute inset-0 bg-[url('/start.jpeg')] bg-cover bg-center opacity-60 mix-blend-overlay"></div>
                         <div className="relative z-10 text-white font-bold text-6xl tracking-tighter mix-blend-difference">
                             EST.<br />2025
                         </div>
