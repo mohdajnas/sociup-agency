@@ -37,7 +37,7 @@ const DomainCard = () => {
                 <CardTitle>Domain Purchase</CardTitle>
                 <CardDescription>Secure your identity.</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 flex flex-col justify-between">
+            <CardContent className="flex-1 flex flex-col justify-between w-full">
                 <div className="flex items-center space-x-2 rounded-lg border bg-background/50 p-1 mb-4">
                     <input
                         value={query}
@@ -123,7 +123,7 @@ const Services = () => {
                             <CardTitle className="text-2xl">Digital Marketing & Strategy</CardTitle>
                             <CardDescription>Data-driven campaigns that deliver ROI.</CardDescription>
                         </CardHeader>
-                        <CardContent className="relative h-64 overflow-hidden">
+                        <CardContent className="relative h-64 overflow-hidden w-full">
                             {/* Abstract Chart visualization */}
                             <div className="absolute inset-0 flex items-end justify-center gap-2 px-8 pb-8 opacity-50 group-hover:opacity-100 transition-opacity">
                                 {[40, 70, 50, 90, 60, 80, 100].map((h, i) => (
@@ -156,7 +156,7 @@ const Services = () => {
                             <CardTitle>Social Media Ads</CardTitle>
                             <CardDescription>Viral content creation.</CardDescription>
                         </CardHeader>
-                        <CardContent className="flex-1 relative overflow-hidden flex items-center justify-center p-0 bg-background">
+                        <CardContent className="flex-1 relative overflow-hidden flex items-center justify-center p-0 bg-background w-full">
                             <video
                                 src="/instagram-ad.mp4"
                                 className="absolute inset-0 w-full h-full object-cover"
@@ -207,7 +207,7 @@ const Services = () => {
                             <CardTitle>Freelance Hub</CardTitle>
                             <CardDescription>Connect with top 1% talent.</CardDescription>
                         </CardHeader>
-                        <CardContent className="flex flex-col items-center justify-center space-y-4">
+                        <CardContent className="flex flex-col items-center justify-center space-y-4 w-full">
                             <div className="flex -space-x-4">
                                 {[1, 2, 3, 4].map((i) => (
                                     <div key={i} className="h-10 w-10 rounded-full border-2 border-background bg-zinc-200 dark:bg-zinc-800" />
