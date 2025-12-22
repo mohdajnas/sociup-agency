@@ -105,9 +105,9 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1 }}
-                    className="mt-10 flex flex-wrap gap-4"
+                    className="mt-10 flex flex-wrap justify-center gap-4"
                 >
-                    <Button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} size="lg" className="rounded-full h-12 px-8 text-base">
+                    <Button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} size="lg" className="rounded-full h-12 px-8 text-base overflow-hidden">
                         Start a Project <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                     <Button onClick={() => document.getElementById("works")?.scrollIntoView({ behavior: "smooth" })} size="lg" variant="outline" className="rounded-full h-12 px-8 text-base glass hover:bg-white/20">

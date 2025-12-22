@@ -31,7 +31,7 @@ const DomainCard = () => {
     return (
         <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 flex flex-col items-center text-center md:items-start md:text-left">
             <CardHeader>
-                <div className="mb-2 h-10 w-10 text-blue-500">
+                <div className="mb-2 h-10 w-10 text-blue-500 mx-auto md:mx-0">
                     <Globe className="h-full w-full" />
                 </div>
                 <CardTitle>Domain Purchase</CardTitle>
@@ -117,7 +117,7 @@ const Services = () => {
                 >
                     <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 items-center text-center md:items-start md:text-left">
                         <CardHeader>
-                            <div className="mb-2 h-10 w-10 text-primary">
+                            <div className="mb-2 h-10 w-10 text-primary mx-auto md:mx-0">
                                 <TrendingUp className="h-full w-full" />
                             </div>
                             <CardTitle className="text-2xl">Digital Marketing & Strategy</CardTitle>
@@ -150,7 +150,7 @@ const Services = () => {
                 >
                     <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 flex flex-col overflow-hidden rounded-2xl items-center text-center md:items-start md:text-left">
                         <CardHeader>
-                            <div className="mb-2 h-10 w-10 text-pink-500">
+                            <div className="mb-2 h-10 w-10 text-pink-500 mx-auto md:mx-0">
                                 <Zap className="h-full w-full" />
                             </div>
                             <CardTitle>Social Media Ads</CardTitle>
@@ -201,7 +201,7 @@ const Services = () => {
                 >
                     <Card className="h-full glass-card hover:border-primary/50 transition-colors duration-500 items-center text-center md:items-start md:text-left">
                         <CardHeader>
-                            <div className="mb-2 h-10 w-10 text-green-500">
+                            <div className="mb-2 h-10 w-10 text-green-500 mx-auto md:mx-0">
                                 <Users className="h-full w-full" />
                             </div>
                             <CardTitle>Freelance Hub</CardTitle>
