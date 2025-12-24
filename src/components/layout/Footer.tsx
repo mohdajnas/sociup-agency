@@ -18,20 +18,20 @@ export function Footer() {
                     <div className="flex flex-col items-center text-center md:items-start md:text-left">
                         <h3 className="mb-4 font-semibold">Services</h3>
                         <ul className="space-y-3 text-muted-foreground">
-                            <li><Link href="#" className="hover:text-foreground">Marketing Strategy</Link></li>
-                            <li><Link href="#" className="hover:text-foreground">Web Development</Link></li>
-                            <li><Link href="#" className="hover:text-foreground">SEO Optimization</Link></li>
-                            <li><Link href="#" className="hover:text-foreground">Social Media</Link></li>
+                            <li><Link href="/#services" className="hover:text-foreground">Marketing Strategy</Link></li>
+                            <li><Link href="/#services" className="hover:text-foreground">Web Development</Link></li>
+                            <li><Link href="/#services" className="hover:text-foreground">SEO Optimization</Link></li>
+                            <li><Link href="/#services" className="hover:text-foreground">Social Media</Link></li>
                         </ul>
                     </div>
 
                     <div className="flex flex-col items-center text-center md:items-start md:text-left">
                         <h3 className="mb-4 font-semibold">Company</h3>
                         <ul className="space-y-3 text-muted-foreground">
-                            <li><Link href="#" className="hover:text-foreground">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-foreground">Carrers</Link></li>
-                            <li><Link href="#" className="hover:text-foreground">Blog</Link></li>
-                            <li><Link href="#" className="hover:text-foreground">Contact</Link></li>
+                            <li><Link href="/#about" className="hover:text-foreground">About Us</Link></li>
+                            <li><Link href="/careers" className="hover:text-foreground">Careers</Link></li>
+                            <li><Link href="/blog" className="hover:text-foreground">Blog</Link></li>
+                            <li><Link href="/#contact" className="hover:text-foreground">Contact</Link></li>
                         </ul>
                     </div>
 
