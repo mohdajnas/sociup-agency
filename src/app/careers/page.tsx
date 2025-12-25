@@ -1,10 +1,59 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Globe, Laptop, Zap } from "lucide-react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+
+type JobPosition = {
+    id: string;
+    title: string;
+    department: string;
+    type: string;
+    location: string;
+};
 
 export default function CareersPage() {
+    const [jobs, setJobs] = useState<JobPosition[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                const q = query(collection(db, "jobs"));
+                const querySnapshot = await getDocs(q);
+                const fetchedJobs: JobPosition[] = [];
+
+                querySnapshot.forEach((doc) => {
+                    // console.log(doc.id, " => ", doc.data());
+                    fetchedJobs.push({ id: doc.id, ...doc.data() } as JobPosition);
+                });
+
+                // If no jobs in DB, fallback to default (optional, removing for now to show real DB state)
+                if (fetchedJobs.length === 0) {
+                    // We could seed here, but for now let's just show empty state or defaults
+                    setJobs([
+                        { id: '1', title: "Senior Product Designer", department: "Design", type: "Full-time", location: "Remote" },
+                        { id: '2', title: "Frontend Developer (Next.js)", department: "Engineering", type: "Full-time", location: "Remote" }
+                    ]);
+                } else {
+                    setJobs(fetchedJobs);
+                }
+            } catch (error) {
+                console.error("Error fetching jobs:", error);
+                // Fallback on error
+                setJobs([
+                    { id: '1', title: "Senior Product Designer", department: "Design", type: "Full-time", location: "Remote" },
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchJobs();
+    }, []);
     return (
         <div className="min-h-screen bg-background flex flex-col">
             {/* Note: In a real Next.js app layout, Navbar and Footer might be in layout.tsx. 
@@ -92,46 +141,36 @@ export default function CareersPage() {
                             </Button>
                         </div>
 
+
                         <div className="space-y-4">
-                            {[
-                                {
-                                    title: "Senior Product Designer",
-                                    department: "Design",
-                                    type: "Full-time",
-                                    location: "Remote"
-                                },
-                                {
-                                    title: "Frontend Developer (Next.js)",
-                                    department: "Engineering",
-                                    type: "Full-time",
-                                    location: "Remote"
-                                },
-                                {
-                                    title: "Digital Marketing Strategist",
-                                    department: "Marketing",
-                                    type: "Contract",
-                                    location: "Hybrid"
-                                }
-                            ].map((job, idx) => (
-                                <div key={idx} className="group relative overflow-hidden rounded-xl border bg-background/50 hover:bg-muted/50 transition-colors p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-                                    <div>
-                                        <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{job.title}</h3>
-                                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                                            <span className="flex items-center gap-1">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                                {job.department}
-                                            </span>
-                                            <span>•</span>
-                                            <span>{job.type}</span>
-                                            <span>•</span>
-                                            <span>{job.location}</span>
+                            {loading ? (
+                                <div className="text-center py-10 opacity-50">Loading positions...</div>
+                            ) : jobs.length > 0 ? (
+                                jobs.map((job) => (
+                                    <div key={job.id} className="group relative overflow-hidden rounded-xl border bg-background/50 hover:bg-muted/50 transition-colors p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{job.title}</h3>
+                                            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                                                <span className="flex items-center gap-1">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                                    {job.department}
+                                                </span>
+                                                <span>•</span>
+                                                <span>{job.type}</span>
+                                                <span>•</span>
+                                                <span>{job.location}</span>
+                                            </div>
                                         </div>
+                                        <Link href="#" className="flex items-center gap-2 font-medium text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                            Apply Now <ArrowRight className="w-4 h-4" />
+                                        </Link>
                                     </div>
-                                    <Link href="#" className="flex items-center gap-2 font-medium text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                                        Apply Now <ArrowRight className="w-4 h-4" />
-                                    </Link>
+                                ))
+                            ) : (
+                                <div className="text-center py-10 text-muted-foreground">
+                                    <p>No open positions at the moment. Check back later!</p>
                                 </div>
-                            ))}
+                            )}
                         </div>
 
                         <div className="mt-12 text-center p-8 rounded-2xl bg-muted/20 border border-dashed border-muted-foreground/30">
