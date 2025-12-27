@@ -26,8 +26,11 @@ export async function GET(request: Request) {
             await resolve(domainToCheck);
             // If successful, it has an IP -> Taken
             isAvailable = false;
-        } catch (error: any) {
-            if (error.code === 'ENOTFOUND') {
+        } catch (error: unknown) {
+            // Check if it's a "Not Found" error
+            const isNotFound = error && typeof error === 'object' && 'code' in error && (error as { code: string }).code === 'ENOTFOUND';
+
+            if (isNotFound) {
                 // Domain does not resolve -> Likely Available
                 isAvailable = true;
             } else {

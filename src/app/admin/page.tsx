@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, orderBy, doc, updateDoc, deleteDoc, Timestamp } from "firebase/firestore";
+import { Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,7 +18,7 @@ type Freelancer = {
     mobile: string;
     portfolio?: string;
     publicProfile?: string;
-    createdAt?: any;
+    createdAt?: Timestamp;
 };
 
 type ContactLead = {
@@ -25,7 +26,16 @@ type ContactLead = {
     name: string;
     email: string;
     message: string;
-    createdAt?: any;
+    createdAt?: Timestamp;
+};
+
+type Job = {
+    id: string;
+    title: string;
+    department: string;
+    type: string;
+    location: string;
+    createdAt?: Timestamp;
 };
 
 export default function AdminDashboardPage() {
@@ -36,9 +46,11 @@ export default function AdminDashboardPage() {
     // Data States
     const [freelancers, setFreelancers] = useState<Freelancer[]>([]);
     const [contacts, setContacts] = useState<ContactLead[]>([]);
+    const [jobs, setJobs] = useState<Job[]>([]);
     const [loadingData, setLoadingData] = useState(true);
 
     // Job Form State
+    const [editingJobId, setEditingJobId] = useState<string | null>(null);
     const [job, setJob] = useState({
         title: "",
         department: "",
@@ -75,6 +87,13 @@ export default function AdminDashboardPage() {
             contactSnap.forEach(doc => contactList.push({ id: doc.id, ...doc.data() } as ContactLead));
             setContacts(contactList);
 
+            // Fetch Jobs
+            const jobQuery = query(collection(db, "jobs"), orderBy("createdAt", "desc"));
+            const jobSnap = await getDocs(jobQuery);
+            const jobList: Job[] = [];
+            jobSnap.forEach(doc => jobList.push({ id: doc.id, ...doc.data() } as Job));
+            setJobs(jobList);
+
         } catch (error) {
             console.error("Error fetching admin data:", error);
         } finally {
@@ -82,23 +101,66 @@ export default function AdminDashboardPage() {
         }
     };
 
-    // Job Post Handler
+    // Job Post/Update Handler
     const handleJobSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoadingPost(true);
         try {
-            await addDoc(collection(db, "jobs"), {
-                ...job,
-                createdAt: new Date()
-            });
-            alert("Job posted successfully!");
+            if (editingJobId) {
+                // Update existing job
+                const jobRef = doc(db, "jobs", editingJobId);
+                await updateDoc(jobRef, {
+                    ...job,
+                    updatedAt: new Date()
+                });
+                alert("Job updated successfully!");
+                setEditingJobId(null);
+            } else {
+                // Create new job
+                await addDoc(collection(db, "jobs"), {
+                    ...job,
+                    createdAt: new Date()
+                });
+                alert("Job posted successfully!");
+            }
+
             setJob({ title: "", department: "", type: "Full-time", location: "Remote" });
+            fetchData(); // Refresh list
         } catch (error) {
-            console.error("Error posting job: ", error);
-            alert("Error posting job.");
+            console.error("Error saving job: ", error);
+            alert("Error saving job.");
         } finally {
             setLoadingPost(false);
         }
+    };
+
+    const handleEditJob = (jobToEdit: Job) => {
+        setJob({
+            title: jobToEdit.title,
+            department: jobToEdit.department,
+            type: jobToEdit.type,
+            location: jobToEdit.location
+        });
+        setEditingJobId(jobToEdit.id);
+        // Switch to form tab or scroll to form if needed, but here they are on same tab
+    };
+
+    const handleDeleteJob = async (jobId: string) => {
+        if (!confirm("Are you sure you want to delete this job?")) return;
+
+        try {
+            await deleteDoc(doc(db, "jobs", jobId));
+            alert("Job deleted successfully");
+            fetchData();
+        } catch (error) {
+            console.error("Error deleting job:", error);
+            alert("Error deleting job");
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setEditingJobId(null);
+        setJob({ title: "", department: "", type: "Full-time", location: "Remote" });
     };
 
     if (!isAuthenticated) {
@@ -142,7 +204,7 @@ export default function AdminDashboardPage() {
                     <TabsList className="grid w-full grid-cols-3 h-12">
                         <TabsTrigger value="leads" className="text-base"><Users className="w-4 h-4 mr-2" /> Client Leads</TabsTrigger>
                         <TabsTrigger value="freelancers" className="text-base"><Briefcase className="w-4 h-4 mr-2" /> Freelancers</TabsTrigger>
-                        <TabsTrigger value="jobs" className="text-base"><MessageSquare className="w-4 h-4 mr-2" /> Post a Job</TabsTrigger>
+                        <TabsTrigger value="jobs" className="text-base"><MessageSquare className="w-4 h-4 mr-2" /> Manage Jobs</TabsTrigger>
                     </TabsList>
 
                     {/* Client Leads Tab */}
@@ -150,7 +212,7 @@ export default function AdminDashboardPage() {
                         <Card>
                             <CardHeader>
                                 <CardTitle>Client Inquiries ({contacts.length})</CardTitle>
-                                <CardDescription>Recent messages from the "Contact Us" form.</CardDescription>
+                                <CardDescription>Recent messages from the &quot;Contact Us&quot; form.</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 {loadingData ? (
@@ -226,8 +288,8 @@ export default function AdminDashboardPage() {
                     <TabsContent value="jobs">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Post a New Job Position</CardTitle>
-                                <CardDescription>Add a new role to the Careers page.</CardDescription>
+                                <CardTitle>{editingJobId ? "Edit Job Position" : "Post a New Job Position"}</CardTitle>
+                                <CardDescription>{editingJobId ? "Update the details of the job position." : "Add a new role to the Careers page."}</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <form onSubmit={handleJobSubmit} className="space-y-6 max-w-2xl mx-auto py-4">
@@ -283,12 +345,53 @@ export default function AdminDashboardPage() {
                                         </div>
                                     </div>
 
-                                    <Button type="submit" className="w-full" disabled={loadingPost}>
-                                        {loadingPost ? "Posting..." : "Post Job"}
-                                    </Button>
+                                    <div className="flex gap-4">
+                                        <Button type="submit" className="flex-1" disabled={loadingPost}>
+                                            {loadingPost ? (editingJobId ? "Updating..." : "Posting...") : (editingJobId ? "Update Job" : "Post Job")}
+                                        </Button>
+                                        {editingJobId && (
+                                            <Button type="button" variant="outline" onClick={handleCancelEdit}>
+                                                Cancel
+                                            </Button>
+                                        )}
+                                    </div>
                                 </form>
                             </CardContent>
                         </Card>
+
+                        <div className="mt-8">
+                            <h2 className="text-2xl font-bold mb-4">Posted Jobs</h2>
+                            {loadingData ? (
+                                <div className="flex justify-center p-8"><Loader2 className="animate-spin" /></div>
+                            ) : jobs.length > 0 ? (
+                                <div className="space-y-4">
+                                    {jobs.map(jobItem => (
+                                        <Card key={jobItem.id} className="bg-card/50">
+                                            <CardContent className="p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                                <div>
+                                                    <h3 className="font-semibold text-lg">{jobItem.title}</h3>
+                                                    <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mt-1">
+                                                        <span className="bg-muted px-2 py-0.5 rounded">{jobItem.department}</span>
+                                                        <span className="bg-muted px-2 py-0.5 rounded">{jobItem.type}</span>
+                                                        <span className="bg-muted px-2 py-0.5 rounded">{jobItem.location}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Button variant="outline" size="sm" onClick={() => handleEditJob(jobItem)}>
+                                                        <Edit className="w-4 h-4 mr-2" /> Edit
+                                                    </Button>
+                                                    <Button variant="outline" size="sm" onClick={() => handleDeleteJob(jobItem.id)} className="text-red-500 hover:text-red-600 hover:bg-red-50 border-red-200">
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </Button>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center py-8 text-muted-foreground">No jobs posted yet.</div>
+                            )}
+                        </div>
                     </TabsContent>
                 </Tabs>
             </div>

@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Badge } from "lucide-react"; // Wait, Badge is usually a separate component, I'll check if I have it or just import Lucide icons.
-import { ArrowRight, Calendar, User, Tag } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 
 // Types for the API response
 type DevToArticle = {
@@ -72,10 +71,12 @@ export default async function BlogPage() {
                             <article key={article.id} className="group flex flex-col bg-card border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:border-primary/20">
                                 <div className="relative h-48 w-full bg-muted overflow-hidden">
                                     {article.cover_image || article.social_image ? (
-                                        <img
+                                        <Image
                                             src={article.cover_image || article.social_image || ""}
                                             alt={article.title}
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center bg-secondary text-muted-foreground">
@@ -112,7 +113,7 @@ export default async function BlogPage() {
                                     <div className="flex items-center justify-between mt-auto pt-4 border-t">
                                         <div className="flex items-center gap-2">
                                             {article.user.profile_image && (
-                                                <img src={article.user.profile_image} alt={article.user.name} className="w-8 h-8 rounded-full border" />
+                                                <Image src={article.user.profile_image} alt={article.user.name} width={32} height={32} className="rounded-full border" />
                                             )}
                                             <div className="text-xs">
                                                 <p className="font-medium text-foreground">{article.user.name}</p>

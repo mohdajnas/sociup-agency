@@ -1,11 +1,10 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Globe, Users, TrendingUp, BarChart3, ArrowUpRight, Zap, Loader2, Check, X } from "lucide-react";
+import { Search, Globe, Users, TrendingUp, Zap, Loader2, Check, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { RegisterFreelancerDialog } from "@/components/RegisterFreelancerDialog";
 
 const DomainCard = () => {

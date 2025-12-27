@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Globe, Laptop, Zap } from "lucide-react";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { ArrowRight, Globe, Laptop, Zap } from "lucide-react";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 type JobPosition = {
@@ -32,21 +32,9 @@ export default function CareersPage() {
                 });
 
                 // If no jobs in DB, fallback to default (optional, removing for now to show real DB state)
-                if (fetchedJobs.length === 0) {
-                    // We could seed here, but for now let's just show empty state or defaults
-                    setJobs([
-                        { id: '1', title: "Senior Product Designer", department: "Design", type: "Full-time", location: "Remote" },
-                        { id: '2', title: "Frontend Developer (Next.js)", department: "Engineering", type: "Full-time", location: "Remote" }
-                    ]);
-                } else {
-                    setJobs(fetchedJobs);
-                }
+                setJobs(fetchedJobs);
             } catch (error) {
                 console.error("Error fetching jobs:", error);
-                // Fallback on error
-                setJobs([
-                    { id: '1', title: "Senior Product Designer", department: "Design", type: "Full-time", location: "Remote" },
-                ]);
             } finally {
                 setLoading(false);
             }
@@ -75,7 +63,7 @@ export default function CareersPage() {
                             Join the <span className="text-primary">Sociup</span> Team
                         </h1>
                         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-                            We're a team of designers, developers, and strategists building the next generation of digital experiences.
+                            We&apos;re a team of designers, developers, and strategists building the next generation of digital experiences.
                             Come do the best work of your career.
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -161,7 +149,7 @@ export default function CareersPage() {
                                                 <span>{job.location}</span>
                                             </div>
                                         </div>
-                                        <Link href="#" className="flex items-center gap-2 font-medium text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                        <Link href={`mailto:careers@sociup.com?subject=Application for ${job.title}`} className="flex items-center gap-2 font-medium text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
                                             Apply Now <ArrowRight className="w-4 h-4" />
                                         </Link>
                                     </div>
@@ -174,7 +162,7 @@ export default function CareersPage() {
                         </div>
 
                         <div className="mt-12 text-center p-8 rounded-2xl bg-muted/20 border border-dashed border-muted-foreground/30">
-                            <p className="text-muted-foreground mb-4">Don't see the perfect role?</p>
+                            <p className="text-muted-foreground mb-4">Don&apos;t see the perfect role?</p>
                             <Link href="mailto:careers@sociup.com" className="font-medium text-foreground hover:text-primary underline">
                                 Send us your portfolio anyway
                             </Link>

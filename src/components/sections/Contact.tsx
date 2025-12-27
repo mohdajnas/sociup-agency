@@ -7,7 +7,6 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function Contact() {
-    const [focused, setFocused] = useState<string | null>(null);
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [loading, setLoading] = useState(false);
 
@@ -38,7 +37,7 @@ export default function Contact() {
                 className="w-full max-w-lg flex flex-col items-center md:block"
             >
                 <div className="mb-10 text-center">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Let's work together</h2>
+                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Let&apos;s work together</h2>
                     <p className="mt-2 text-muted-foreground">Tell us about your project.</p>
                 </div>
 
@@ -51,8 +50,6 @@ export default function Contact() {
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             required
                             className="peer block w-full border-b-2 border-muted bg-transparent py-3 px-0 text-lg font-medium text-foreground focus:border-primary focus:outline-none transition-colors"
-                            onFocus={() => setFocused('name')}
-                            onBlur={() => setFocused(null)}
                         />
                         <label
                             htmlFor="name"

@@ -44,13 +44,13 @@ export default function Hiring() {
                         onClick={() => setRole("client")}
                         className={`relative z-10 w-1/2 text-sm font-medium transition-colors ${role === "client" ? "text-foreground" : "text-muted-foreground"}`}
                     >
-                        I'm a Client
+                        I&apos;m a Client
                     </button>
                     <button
                         onClick={() => setRole("freelancer")}
                         className={`relative z-10 w-1/2 text-sm font-medium transition-colors ${role === "freelancer" ? "text-foreground" : "text-muted-foreground"}`}
                     >
-                        I'm a Freelancer
+                        I&apos;m a Freelancer
                     </button>
                 </div>
 
