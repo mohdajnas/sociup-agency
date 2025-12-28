@@ -26,13 +26,13 @@ type DevToArticle = {
 };
 
 // Revalidate every hour to keep content fresh "day by day"
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 async function getArticles() {
     try {
         const res = await fetch(
             "https://dev.to/api/articles?tag=digitalmarketing&per_page=9",
-            { next: { revalidate: 3600 } }
+            { next: { revalidate: 86400 } }
         );
 
         if (!res.ok) {
